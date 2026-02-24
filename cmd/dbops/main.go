@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"arx.io/dbops/internal/logger"
+)
 
 func main() {
-	fmt.Println("dbops")
+	logger.Init()
+
+	logger.Log.Info("DBOps")
 }
