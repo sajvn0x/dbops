@@ -1,3 +1,4 @@
+// Package server handles commands, and the web as well
 package server
 
 import (

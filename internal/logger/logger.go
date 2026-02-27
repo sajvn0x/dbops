@@ -1,3 +1,4 @@
+// Package logger handles the logging
 package logger
 
 import (
