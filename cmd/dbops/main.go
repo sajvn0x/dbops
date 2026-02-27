@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	DEFAULT_HOST = "localhost"
-	DEFAULT_PORT = ":8080"
+	DefaultHost = "localhost"
+	DefaultPort = ":8080"
 )
 
 func main() {
@@ -17,7 +17,7 @@ func main() {
 
 	srv := server.New()
 
-	logger.Log.Sugar().Infof("Server started at localhost%s", DEFAULT_PORT)
+	logger.Log.Sugar().Infof("Server started at localhost%s", DefaultPort)
 
-	http.ListenAndServe(DEFAULT_PORT, srv)
+	http.ListenAndServe(DefaultPort, srv)
 }
