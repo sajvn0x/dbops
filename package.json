@@ -1,0 +1,12 @@
+{
+  "name": "@dbops/workspace",
+  "version": "0.0.1",
+  "description": "DBOps Workspace",
+  "scripts": {
+    "dev": "go run ./cmd/dbops",
+	"lint": "go vet ./..."
+  },
+  "keywords": [],
+  "author": "sajeevan",
+  "license": "MIT"
+}
