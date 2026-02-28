@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "description": "DBOps Workspace",
   "scripts": {
-    "dev": "go run ./cmd/dbops",
-	"lint": "go vet ./..."
+	"dev": "go run ./cmd/dbops",
+	"lint": "go vet ./...",
+	"infra": "docker-compose --env-file .env -f docker/docker-compose.yml up -d",
+	"infra:down": "docker-compose --env-file .env -f docker/docker-compose.yml down"
   },
   "keywords": [],
   "author": "sajeevan",
