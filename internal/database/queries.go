@@ -7,10 +7,10 @@ type DBQueries interface {
 	// Users
 	// ------------------------
 	// ListUsers returns all database users
-	ListUsers() ([]map[string]any, error)
+	ListUsers() (*QueryResult, error)
 
 	// GetUserByName returns details of a single user
-	GetUserByName(username string) (map[string]any, error)
+	GetUserByName(username string) (*QueryResult, error)
 
 	// ------------------------
 	// Tables
@@ -65,6 +65,11 @@ type DBQueries interface {
 
 	// ExecuteCommand runs INSERT/UPDATE/DELETE and returns affected row count
 	ExecuteCommand(query string, args ...any) (int64, error)
+}
+
+type QueryResult struct {
+	Columns []string
+	Rows    [][]any
 }
 
 type ColumnInfo struct {
