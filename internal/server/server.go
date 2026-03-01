@@ -19,12 +19,10 @@ func New() http.Handler {
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.Logger)
-	// TODO: we are also serving the web
-	// this is not convenient to add this middleware
-	// r.Use(JSONMiddleware)
 
 	registerRoutes(r)
 
+	// serving the web
 	webServe(r)
 
 	return r
