@@ -68,8 +68,8 @@ type DBQueries interface {
 }
 
 type QueryResult struct {
-	Columns []string
-	Rows    [][]any
+	Columns []string `json:"columns"`
+	Rows    [][]any  `json:"rows"`
 }
 
 type ColumnInfo struct {
