@@ -16,6 +16,31 @@ This project aims to evolve into a multi-database DBA automation platform suppor
 
 ---
 
+## Developer Setup
+
+### Requirements
+
+- Install the following tools:
+    - [Go](https://go.dev/dl/)
+    - [Pnpm](https://pnpm.io/installation)
+    - [Node.js (required for pnpm)](https://nodejs.org/en/download)
+    - [Oracle Instant Client (21.x recommended)](https://www.oracle.com/database/technologies/instant-client/downloads.html)
+
+### Install Project Dependencies
+
+```bash
+go mod tidy
+pnpm install
+```
+
+### Run the Project
+
+```bash
+pnpm dev
+```
+
+---
+
 ## Security Notice
 
 Some scripts require elevated privileges.
