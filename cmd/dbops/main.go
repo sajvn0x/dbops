@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"arx.io/dbops/internal/app"
+	"arx.io/dbops/internal/driver/oracle"
 	"arx.io/dbops/internal/logger"
 	"arx.io/dbops/internal/server"
 )
@@ -16,10 +17,16 @@ const (
 func main() {
 	logger.Init()
 
-	_, err := app.LoadConfig("config/config.yaml")
+	config, err := app.LoadConfig("config/config.yaml")
 	if err != nil {
 		panic(err)
 	}
+
+	// initialize app
+	a := app.NewApp(config)
+
+	// register drivers
+	a.RegisterDriver("oracle", &oracle.OracleConnector{})
 
 	srv := server.New()
 

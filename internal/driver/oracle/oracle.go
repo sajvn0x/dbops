@@ -1,6 +1,3 @@
-//go:build oracle
-// +build oracle
-
 // Package oracle provides utilities for connecting to and interacting with
 // Oracle databases.
 //
@@ -18,8 +15,6 @@ package oracle
 
 import (
 	"database/sql"
-
-	"arx.io/dbops/internal/database"
 
 	_ "github.com/godror/godror"
 )
