@@ -1,0 +1,15 @@
+app:
+  name: "DB Ops"
+  log_level: "info"
+
+users:
+  - username: "admin"
+    password: "$2a$10$N9qo8uLOickgx2ZMRZoMy.Mr/.FDrM.g9p7Q3fB3g7T7N7d7y5q7W"
+    role: "admin"
+  - username: "operator"
+    password: "$2a$10$7rF9f6cM.d5LpA9Z9Z9Z9O9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9"
+    role: "operator"
+  - username: "viewer"
+    password: "$2a$10$8uI0s5eFpLqWxYzN9q8oUO9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9"
+    role: "readonly"
+
