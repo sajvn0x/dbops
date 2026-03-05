@@ -30,7 +30,34 @@ func NewApp(cfg *AppConfig) *App {
 	}
 }
 
-func (a *App) GetConnection(name string, dsn string) (*sql.DB, error) {
+func (a *App) SetConnection(name string, dbType string, dsn string) error {
+	a.connsMu.Lock()
+	defer a.connsMu.Unlock()
+
+	val, ok := a.conns[name]
+	if ok {
+		// checking the connection, if it is still active or not
+		if err := val.Ping(); err == nil {
+			return nil
+		}
+	}
+
+	driver, exists := a.drivers[dbType]
+	if !exists {
+		return fmt.Errorf("no driver registered for database type %q", dbType)
+	}
+
+	db, err := driver.Open(dsn)
+	if err != nil {
+		return err
+	}
+
+	a.conns[name] = db
+
+	return nil
+}
+
+func (a *App) GetConnection(name string) (*sql.DB, error) {
 	a.connsMu.RLock()
 	db, ok := a.conns[name]
 	a.connsMu.RUnlock()
@@ -39,26 +66,27 @@ func (a *App) GetConnection(name string, dsn string) (*sql.DB, error) {
 		return db, nil
 	}
 
-	a.connsMu.Lock()
-	defer a.connsMu.Unlock()
-
-	// Double-check after acquiring lock
-	if db, ok := a.conns[name]; ok {
-		return db, nil
-	}
-
-	driver, exists := a.drivers["oracle"]
-	if !exists {
-		return nil, fmt.Errorf("no driver registered for database type %q", "oracle")
-	}
-
-	db, err := driver.Open(dsn)
-	if err != nil {
-		return nil, fmt.Errorf("failed to open connection")
-	}
-
-	a.conns[name] = db
 	return db, nil
+}
+
+func (a *App) Connect(name string, dbType string, dsn string) (*sql.DB, error) {
+	err := a.SetConnection(name, dbType, dsn)
+	if err != nil {
+		return nil, err
+	}
+
+	return a.GetConnection(name)
+}
+
+func (a *App) Disconnect(name string) error {
+	db, err := a.GetConnection(name)
+	if err != nil {
+		return err
+	}
+	err = db.Close()
+
+	delete(a.conns, name)
+	return err
 }
 
 func (a *App) CloseAll() error {
