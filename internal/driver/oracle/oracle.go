@@ -1,4 +1,3 @@
-// go:build oracle
 //go:build oracle
 // +build oracle
 
