@@ -1,3 +1,4 @@
+// go:build oracle
 //go:build oracle
 // +build oracle
 
@@ -23,6 +24,32 @@ import (
 
 	_ "github.com/godror/godror"
 )
+
+type OracleConnector struct{}
+
+func (o *OracleConnector) Type() string {
+	return database.DriverOracleName
+}
+
+func (o *OracleConnector) Open(dsn string) (*sql.DB, error) {
+	d, ok := database.GetDriver(database.DriverOracleName)
+
+	if !ok {
+		panic("Oracle driver not initialized")
+	}
+
+	db, err := d(dsn)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return db, nil
+}
+
+func (o *OracleConnector) Close() error {
+	return nil
+}
 
 func init() {
 	database.RegisterDriver(database.DriverOracleName, func(dsn string) (*sql.DB, error) {
