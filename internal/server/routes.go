@@ -8,10 +8,15 @@ import (
 )
 
 func registerRoutes(r chi.Router) {
-	r.Group(func(r chi.Router) {
+	// api
+	apiRouter := chi.NewRouter()
+
+	apiRouter.Group(func(r chi.Router) {
 		r.Use(JSONMiddleware)
 		r.Get("/health", healthHandler)
 	})
+
+	r.Mount("/api", apiRouter)
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
