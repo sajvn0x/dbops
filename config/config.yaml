@@ -2,6 +2,15 @@ app:
   name: "DB Ops"
   log_level: "info"
 
+databases:
+  - name: "oracle_1"
+    type: "oracle"
+    host: "localhost"
+    port: 1521
+    user: "scott"
+    password: "tiger"
+    service_name: "XEPDB1"
+
 users:
   - username: "admin"
     password: "$2a$10$N9qo8uLOickgx2ZMRZoMy.Mr/.FDrM.g9p7Q3fB3g7T7N7d7y5q7W"
