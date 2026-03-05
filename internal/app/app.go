@@ -66,7 +66,7 @@ func (a *App) GetConnection(name string) (*sql.DB, error) {
 		return db, nil
 	}
 
-	return db, nil
+	return nil, fmt.Errorf("connection not configured: %s", name)
 }
 
 func (a *App) Connect(name string, dbType string, dsn string) (*sql.DB, error) {
