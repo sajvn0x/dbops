@@ -27,19 +27,17 @@ import (
 type OracleConnector struct{}
 
 func (o *OracleConnector) Type() string {
-	return database.DriverOracleName
+	return "oracle"
 }
 
 func (o *OracleConnector) Open(dsn string) (*sql.DB, error) {
-	d, ok := database.GetDriver(database.DriverOracleName)
-
-	if !ok {
-		panic("Oracle driver not initialized")
+	db, err := sql.Open("godror", dsn)
+	if err != nil {
+		return nil, err
 	}
 
-	db, err := d(dsn)
-
-	if err != nil {
+	if err = db.Ping(); err != nil {
+		db.Close()
 		return nil, err
 	}
 
@@ -48,10 +46,4 @@ func (o *OracleConnector) Open(dsn string) (*sql.DB, error) {
 
 func (o *OracleConnector) Close() error {
 	return nil
-}
-
-func init() {
-	database.RegisterDriver(database.DriverOracleName, func(dsn string) (*sql.DB, error) {
-		return sql.Open("godror", dsn)
-	})
 }
