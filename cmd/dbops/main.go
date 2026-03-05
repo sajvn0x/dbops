@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"arx.io/dbops/internal/app"
 	"arx.io/dbops/internal/logger"
 	"arx.io/dbops/internal/server"
 )
@@ -14,6 +15,11 @@ const (
 
 func main() {
 	logger.Init()
+
+	_, err := app.LoadConfig("config/config.yaml")
+	if err != nil {
+		panic(err)
+	}
 
 	srv := server.New()
 
