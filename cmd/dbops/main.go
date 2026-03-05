@@ -28,6 +28,18 @@ func main() {
 	// register drivers
 	a.RegisterDriver("oracle", &oracle.OracleConnector{})
 
+	for _, v := range config.Databases {
+		dsn, err := v.DSN()
+		if err != nil {
+			panic(err)
+		}
+
+		err = a.SetConnection(v.Name, v.Type, dsn)
+		if err != nil {
+			panic(err)
+		}
+	}
+
 	srv := server.New()
 
 	logger.Log.Sugar().Infof("Server started at localhost%s", DefaultPort)
